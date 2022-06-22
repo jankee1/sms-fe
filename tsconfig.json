@@ -1,5 +1,12 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "types": [
+        "../sms-be/types"
+      ]
+    },
     "target": "es5",
     "lib": [
       "dom",

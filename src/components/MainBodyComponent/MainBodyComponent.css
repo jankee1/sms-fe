@@ -1,0 +1,18 @@
+.main-body {
+    background-color: red;
+    grid-row: 2/4;
+    grid-column: 2/3;
+
+    display:grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    align-items: center;
+}
+
+.send-message {
+    grid-column: 1/2;
+
+}
+.read-message {
+    grid-column: 2/3;
+}
