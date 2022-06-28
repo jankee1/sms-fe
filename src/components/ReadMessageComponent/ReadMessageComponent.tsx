@@ -1,7 +1,7 @@
 import React, {SyntheticEvent, useState} from 'react';
 import {Btn} from "../common/Btn";
 
-// import './ReadMessageComponent.css';
+import './ReadMessageComponent.css';
 
 export const ReadMessageComponent = () => {
 
@@ -24,11 +24,28 @@ export const ReadMessageComponent = () => {
 
 
     return (
+        <>
+        <div className="show-message">
+            <h3>Here you will see the secret message:</h3>
+            <br/>
+            <p>SMS</p>
+        </div>
         <form action="" className="send-form" onSubmit={readMessage}>
-            <h3>Update secret message</h3>
+            <h3>Read secret message</h3>
             <p>
                 <label>
-                    Secret key: <br/>
+                    Sender: <br/><br/>
+                    <input
+                        required
+                        type="text"
+                        title="sender"
+                        onChange={e => updateSecretKey('sender', e.target.value)}
+                    />
+                </label>
+            </p>
+            <p>
+                <label>
+                    Secret key: <br/><br/>
                     <input
                         required
                         type="text"
@@ -39,5 +56,6 @@ export const ReadMessageComponent = () => {
             </p>
             <Btn text="Search for message"/>
         </form>
+        </>
     );
 }
