@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "types": [
-        "../sms-be/types"
+        "../../../../sms-be/types/"
       ]
     }
   }
