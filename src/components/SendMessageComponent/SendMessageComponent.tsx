@@ -23,6 +23,9 @@ export const SendMessageComponent = () => {
 
     const [message, setMessage] = useState(MSG);
     const [apiResponse, setApiResponse] = useState(APIRES)
+    const [toBeDeletedAfterReadChecked, setToBeDeletedAfterReadChecked] = useState(false)
+
+    const toBeDeletedAfterReadCheckbox = () => setToBeDeletedAfterReadChecked(!toBeDeletedAfterReadChecked)
 
     const saveMessage = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -41,7 +44,7 @@ export const SendMessageComponent = () => {
             setApiResponse({
                 ...data
             })
-            
+            setToBeDeletedAfterReadChecked(false);
         } finally {
             console.log('wynik',apiResponse); // TODO ogarnac ten temat
             setMessage(MSG);
@@ -60,8 +63,8 @@ export const SendMessageComponent = () => {
     return (
         <>
             
-            <form action="" className="send-form" onSubmit={saveMessage}>
-                <p>{apiResponse.isSucces ?? `Dear ${apiResponse.sender}. Your secret key is ${apiResponse.secretKey}. Pass these credentials to the person who you sent this message to as this is the first and last time where the secret key is visible for you`}</p>
+            <form action="" className="send-form" onSubmit={saveMessage} >
+                 <p>{apiResponse.isSucces ?? `Dear ${apiResponse.sender}. Your secret key is ${apiResponse.secretKey}. Pass these credentials to the person who you sent this message to as this is the first and last time where the secret key is visible for you`}</p>
                 <h2>Create secret message</h2>
                 <p>
                     <label>
@@ -94,6 +97,8 @@ export const SendMessageComponent = () => {
                             type="checkbox" 
                             name="toBeDeletedAfterRead" 
                             id="" 
+                            onClick={toBeDeletedAfterReadCheckbox}
+                            checked={toBeDeletedAfterReadChecked}
                             onChange={e => updateForm('toBeDeletedAfterRead', e.target.checked)}
                         />
                         Delete message after 24h*?
