@@ -10,7 +10,7 @@ export const SendMessageComponent = () => {
     const MSG = {
         sender: '',
         body: '',
-        toBeDeletedAfterRead: false
+        toBeDeletedAfter24h: false
     }
     const APIRES: CreateMessageApiResponse = {
         isSucces: false,
@@ -23,9 +23,9 @@ export const SendMessageComponent = () => {
 
     const [message, setMessage] = useState(MSG);
     const [apiResponse, setApiResponse] = useState(APIRES)
-    const [toBeDeletedAfterReadChecked, setToBeDeletedAfterReadChecked] = useState(false)
+    const [toBeDeletedAfter24hChecked, setToBeDeletedAfter24hChecked] = useState(false)
 
-    const toBeDeletedAfterReadCheckbox = () => setToBeDeletedAfterReadChecked(!toBeDeletedAfterReadChecked)
+    const toBeDeletedAfterReadCheckbox = () => setToBeDeletedAfter24hChecked(!toBeDeletedAfter24hChecked)
 
     const saveMessage = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -44,10 +44,11 @@ export const SendMessageComponent = () => {
             setApiResponse({
                 ...data
             })
-            setToBeDeletedAfterReadChecked(false);
+            setToBeDeletedAfter24hChecked(false);
         } finally {
             console.log('wynik',apiResponse); // TODO ogarnac ten temat
             setMessage(MSG);
+
         }
         console.log('wynik',apiResponse);
     };
@@ -95,11 +96,11 @@ export const SendMessageComponent = () => {
                     <label>
                         <input 
                             type="checkbox" 
-                            name="toBeDeletedAfterRead" 
+                            name="toBeDeletedAfter24h" 
                             id="" 
                             onClick={toBeDeletedAfterReadCheckbox}
-                            checked={toBeDeletedAfterReadChecked}
-                            onChange={e => updateForm('toBeDeletedAfterRead', e.target.checked)}
+                            checked={toBeDeletedAfter24hChecked}
+                            onChange={e => updateForm('toBeDeletedAfter24h', e.target.checked)}
                         />
                         Delete message after 24h*?
                     </label>
