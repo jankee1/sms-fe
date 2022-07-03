@@ -1,6 +1,7 @@
 import React, {SyntheticEvent, useState, useEffect} from 'react';
 import {Btn} from "../common/Btn";
 import {CreateMessageApiResponse} from "types";
+import {MSG, APIRES, ONE_MINUTE, MAX_SENDER_LENGTH, MAX_MESSAGE_LENGTH} from "../../config/api";
 import {MessageSentConfirmation} from './MessageSentConfirmation';
 import {apiUrl} from '../../config/api';
 import { Error } from '../common/Error';
@@ -10,26 +11,11 @@ import './SendMessageComponent.css';
 
 export const SendMessageComponent = () => {
 
-    const MSG = {
-        sender: '',
-        body: '',
-        toBeDeletedAfter24h: false
-    }
-    const APIRES: CreateMessageApiResponse = {
-        isSucces: false,
-        secretKey: '',
-        sender: '',
-        errMsg: ''
-    }
-    const MAX_SENDER_LENGTH: number = 30
-    const MAX_MESSAGE_LENGTH: number = 500
-    const ONE_MINUTE: number = 60
-
     const [message, setMessage] = useState(MSG);
     const [apiResponse, setApiResponse] = useState(APIRES)
-    const [toBeDeletedAfter24hChecked, setToBeDeletedAfter24hChecked] = useState(false)
-    const [counter, setCounter] = useState(0);
-    const [shomConfirmation, setShowConfirmation] = useState(false);
+    const [toBeDeletedAfter24hChecked, setToBeDeletedAfter24hChecked] = useState<boolean>(false)
+    const [counter, setCounter] = useState<number>(0);
+    const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
     const toBeDeletedAfterReadCheckbox = () => setToBeDeletedAfter24hChecked(!toBeDeletedAfter24hChecked)
 
@@ -52,18 +38,15 @@ export const SendMessageComponent = () => {
             setApiResponse({
                 ...data
             })
-            console.log(data)
+
             if(data.secretKey && data.secretKey.length > 0) {
                 setCounter(ONE_MINUTE);
                 setShowConfirmation(true);
             }
 
-            
-            setToBeDeletedAfter24hChecked(false);
-
         } finally {
             setMessage(MSG);
-            console.log(apiResponse)
+            setToBeDeletedAfter24hChecked(false);
         }
     };
 
@@ -83,7 +66,7 @@ export const SendMessageComponent = () => {
         <>
             <div className="message-confirmation">
                 {
-                    shomConfirmation ? <MessageSentConfirmation sender={apiResponse.sender} secretKey={apiResponse.secretKey} counter={counter}/> : ''
+                    showConfirmation ? <MessageSentConfirmation sender={apiResponse.sender} secretKey={apiResponse.secretKey} counter={counter}/> : ''
                 }
                 {
                     apiResponse.errMsg && apiResponse.errMsg.length > 0 ? <Error errorText={apiResponse.errMsg}/> : ''
