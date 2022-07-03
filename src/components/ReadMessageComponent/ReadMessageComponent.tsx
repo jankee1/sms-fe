@@ -73,7 +73,7 @@ export const ReadMessageComponent = () => {
                 </div><br />
                 <Btn text="Search for message"/>
                 <br /><br /><br />
-                <Warning text='YOUR MESSAGE WILL BE DELETED FROM DATABASE JUST AFTER IT WILL BE DISPLAYED!'/>
+                <p><Warning text='YOUR MESSAGE WILL BE DELETED FROM DATABASE JUST AFTER IT WILL BE DISPLAYED!'/></p>
             </form>
         </>
     );
