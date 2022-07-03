@@ -10,7 +10,7 @@ export const SendMessageComponent = () => {
     const MSG = {
         sender: '',
         body: '',
-        toBeDeletedAfterRead: false
+        toBeDeletedAfter24h: false
     }
     const APIRES: CreateMessageApiResponse = {
         isSucces: false,
@@ -23,6 +23,9 @@ export const SendMessageComponent = () => {
 
     const [message, setMessage] = useState(MSG);
     const [apiResponse, setApiResponse] = useState(APIRES)
+    const [toBeDeletedAfter24hChecked, setToBeDeletedAfter24hChecked] = useState(false)
+
+    const toBeDeletedAfterReadCheckbox = () => setToBeDeletedAfter24hChecked(!toBeDeletedAfter24hChecked)
 
     const saveMessage = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -41,10 +44,11 @@ export const SendMessageComponent = () => {
             setApiResponse({
                 ...data
             })
-            
+            setToBeDeletedAfter24hChecked(false);
         } finally {
             console.log('wynik',apiResponse); // TODO ogarnac ten temat
             setMessage(MSG);
+
         }
         console.log('wynik',apiResponse);
     };
@@ -60,8 +64,8 @@ export const SendMessageComponent = () => {
     return (
         <>
             
-            <form action="" className="send-form" onSubmit={saveMessage}>
-                <p>{apiResponse.isSucces ?? `Dear ${apiResponse.sender}. Your secret key is ${apiResponse.secretKey}. Pass these credentials to the person who you sent this message to as this is the first and last time where the secret key is visible for you`}</p>
+            <form action="" className="send-form" onSubmit={saveMessage} >
+                 <p>{apiResponse.isSucces ?? `Dear ${apiResponse.sender}. Your secret key is ${apiResponse.secretKey}. Pass these credentials to the person who you sent this message to as this is the first and last time where the secret key is visible for you`}</p>
                 <h2>Create secret message</h2>
                 <p>
                     <label>
@@ -92,9 +96,11 @@ export const SendMessageComponent = () => {
                     <label>
                         <input 
                             type="checkbox" 
-                            name="toBeDeletedAfterRead" 
+                            name="toBeDeletedAfter24h" 
                             id="" 
-                            onChange={e => updateForm('toBeDeletedAfterRead', e.target.checked)}
+                            onClick={toBeDeletedAfterReadCheckbox}
+                            checked={toBeDeletedAfter24hChecked}
+                            onChange={e => updateForm('toBeDeletedAfter24h', e.target.checked)}
                         />
                         Delete message after 24h*?
                     </label>
