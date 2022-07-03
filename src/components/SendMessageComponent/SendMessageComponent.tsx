@@ -3,6 +3,7 @@ import {Btn} from "../common/Btn";
 import {CreateMessageApiResponse} from "types";
 import {MessageSentConfirmation} from './MessageSentConfirmation';
 import {apiUrl} from '../../config/api';
+import { Error } from '../common/Error';
 
 import './SendMessageComponent.css';
 
@@ -28,15 +29,14 @@ export const SendMessageComponent = () => {
     const [apiResponse, setApiResponse] = useState(APIRES)
     const [toBeDeletedAfter24hChecked, setToBeDeletedAfter24hChecked] = useState(false)
     const [counter, setCounter] = useState(0);
+    const [shomConfirmation, setShowConfirmation] = useState(false);
 
     const toBeDeletedAfterReadCheckbox = () => setToBeDeletedAfter24hChecked(!toBeDeletedAfter24hChecked)
 
-    useEffect(() => {
-        counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
-    }, [counter]);
 
     const saveMessage = async (e: SyntheticEvent) => {
         e.preventDefault();
+        setShowConfirmation(false);
         
         try {
             const res = await fetch(`${apiUrl}/message/`, {
@@ -52,13 +52,25 @@ export const SendMessageComponent = () => {
             setApiResponse({
                 ...data
             })
-            setCounter(ONE_MINUTE);
+            console.log(data)
+            if(data.secretKey && data.secretKey.length > 0) {
+                setCounter(ONE_MINUTE);
+                setShowConfirmation(true);
+            }
+
+            
             setToBeDeletedAfter24hChecked(false);
 
         } finally {
             setMessage(MSG);
+            console.log(apiResponse)
         }
     };
+
+    useEffect(() => {
+        counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+    }, [counter]);
+
 
     const updateForm = (key: string, value: any) => {
         setMessage(msg => ({
@@ -67,12 +79,14 @@ export const SendMessageComponent = () => {
         }));
     };
 
-
     return (
         <>
             <div className="message-confirmation">
                 {
-                    apiResponse.isSucces ?? <MessageSentConfirmation sender={apiResponse.sender} secretKey={apiResponse.secretKey} counter={counter}/> 
+                    shomConfirmation ? <MessageSentConfirmation sender={apiResponse.sender} secretKey={apiResponse.secretKey} counter={counter}/> : ''
+                }
+                {
+                    apiResponse.errMsg && apiResponse.errMsg.length > 0 ? <Error errorText={apiResponse.errMsg}/> : ''
                 }
             </div>
             

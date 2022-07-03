@@ -1,9 +1,9 @@
-import React, {SyntheticEvent, useState,useRef} from 'react';
+import React from 'react';
 
 import './Error.css';
 
 type Props = {
-    errorText: string;
+    errorText: string
 }
 
 export const Error = (props: Props) => {
