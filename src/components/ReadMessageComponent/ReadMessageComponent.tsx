@@ -1,8 +1,10 @@
-import React, {SyntheticEvent, useState,useRef} from 'react';
+import React, {SyntheticEvent, useState} from 'react';
 import {Btn} from "../common/Btn";
 import {OneMessageFromDB} from "types";
 import {SingleMessageComponent} from './SingleMessageComponent';
 import {Error} from '../common/Error'
+import {Warning} from '../common/Warning'
+import {apiUrl} from '../../config/api';
 
 import './ReadMessageComponent.css';
 
@@ -12,7 +14,7 @@ export const ReadMessageComponent = () => {
         sender: '',
         secretKey: ''
     }
-    const SECRET_MESSAGE ={
+    const SECRET_MESSAGE: OneMessageFromDB ={
         sender: '',
         secretKey: '',
         body: '',
@@ -27,7 +29,7 @@ export const ReadMessageComponent = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`http://localhost:3001/message/${credentials.sender}/${credentials.secretKey}`);
+            const res = await fetch(`${apiUrl}/message/${credentials.sender}/${credentials.secretKey}`);
             const data = await res.json();
             setSecretMessage({
                 ...data
@@ -57,31 +59,35 @@ export const ReadMessageComponent = () => {
             </div>
             <form action="" className="send-form" onSubmit={readMessage}>
                 <h3>Read secret message</h3>
-                <p>
-                    <label>
-                        Sender: <br/><br/>
-                        <input
-                            required
-                            type="text"
-                            title="sender"
-                            value={credentials.sender}
-                            onChange={e => updateSecretKey('sender', e.target.value)}
-                        />
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        Secret key: <br/><br/>
-                        <input
-                            required
-                            type="text"
-                            title="secretKey"
-                            value={credentials.secretKey}
-                            onChange={e => updateSecretKey('secretKey', e.target.value)}
-                        />
-                    </label>
-                </p>
+                <div>
+                    <p>
+                        <label>
+                            Sender: <br/><br/>
+                            <input
+                                required
+                                type="text"
+                                title="sender"
+                                value={credentials.sender}
+                                onChange={e => updateSecretKey('sender', e.target.value)}
+                            />
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            Secret key: <br/><br/>
+                            <input
+                                required
+                                type="text"
+                                title="secretKey"
+                                value={credentials.secretKey}
+                                onChange={e => updateSecretKey('secretKey', e.target.value)}
+                            />
+                        </label>
+                    </p>
+                </div><br />
                 <Btn text="Search for message"/>
+                <br /><br /><br />
+                <Warning text='YOUR MESSAGE WILL BE DELETED FROM DATABASE JUST AFTER IT WILL BE DISPLAYED!'/>
             </form>
         </>
     );

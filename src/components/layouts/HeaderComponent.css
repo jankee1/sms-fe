@@ -1,5 +1,6 @@
 .header {
     width: 100%;
-    background-color: violet;
+    background-color: rgb(56, 56, 56);
+    color: aliceblue;
     grid-column: 1/4;
 }

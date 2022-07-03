@@ -9,6 +9,7 @@ type Props = {
 export const Error = (props: Props) => {
     return (
         <div className="error">
+            <h3>Error!</h3>
             <p>{props.errorText}</p>
         </div>
     )

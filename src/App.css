@@ -2,10 +2,15 @@
   text-align: center;
   height: 100vh;
   display: grid;
+  background-color: rgb(170, 173, 175);
+  z-index: -5;
   grid-template-columns: 5% auto 5%;
   column-gap: 10px;
   row-gap: 20px;
-  grid-template-rows: 15% minmax(500px, auto) 15%;
+  grid-template-rows: 13% minmax(500px, 1fr) 15%;
 }
-
-/* 15% minmax(500px, auto) 15% */
+input, textarea {
+  background-color: rgb(170, 173, 175);
+  border-radius: 15px;
+  padding: 5px 10px;
+}

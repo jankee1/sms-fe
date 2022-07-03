@@ -1,5 +1,5 @@
 import React, {SyntheticEvent, useState} from 'react';
-// import './SingleMessageComponent.css';
+import './SingleMessageComponent.css';
 
 type Props = {
     sender: string;
@@ -12,11 +12,15 @@ export const SingleMessageComponent = (props: Props) => {
     return (
         <>
             <div className="message">
-                <h3>Here you will see the secret message:</h3>
-                <br/>
-                <p>Message from: {props.sender}</p>
-                <p>Sent on: { props.createdAt }</p>
-                <p>Message body: {props.body}</p>
+                <h3>Your secret message</h3>
+                <div>
+                    <p><b>Message from: </b> {props.sender}</p>
+                    <p><b>Sent on: </b> { props.createdAt }</p>
+                </div>
+                <p className='message-content'><b>Message content:</b>
+                    <br />
+                 {props.body}
+                 </p>
             </div>
         </>
     );
