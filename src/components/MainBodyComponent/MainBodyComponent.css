@@ -1,26 +1,35 @@
 .main-body {
-    background-color: red;
+    background-color: rgb(119, 119, 119);
     grid-row: 2/4;
     grid-column: 2/3;
-
+    height: minmax(710px, 100%);
     display:grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 100%;
     border: 5px solid black;
+    border-radius: 15px;
 }
 
 .send-message {
+    height: 100%;
     grid-column: 1/2;
     border-right: 5px solid black;
     display: grid;
     grid-template-columns: 10% auto 10%;
-    grid-template-rows: 10% auto 10%;
+    grid-template-rows: 20% auto 5%;
 }
+
+.send-message .message-confirmation {
+    grid-column: 2/3;
+}
+
 .send-message form {
+    height: 100%;
     grid-row: 2/4;
     grid-column: 2/3;
 }
 .read-message {
+    height: 100%;
     grid-column: 2/3;
     display: grid;
     grid-template-rows: 50% 50%;

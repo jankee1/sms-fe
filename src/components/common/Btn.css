@@ -1,5 +1,5 @@
 button, .btn {
-    background-color: #2a913e;
+    background-color: rgb(56, 56, 56);
     border: 0;
     color :white;
     text-transform: uppercase;
@@ -9,4 +9,5 @@ button, .btn {
     border-radius: 3px;
     line-height: 22px;
     text-decoration: none;
+    border-radius: 15px;
 }
